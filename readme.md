@@ -41,7 +41,9 @@
     进入到flask_base目录，运行pip install -r requirements.txt
     运行python ./main.py
 
+
 如下:
+
 ![img.png](img.png)
 
 4.其他:
