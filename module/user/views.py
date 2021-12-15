@@ -8,8 +8,8 @@ import json
 from flask import request
 from flask.views import MethodView
 
-from plugins import res_json
-from user.service import UserService
+from common.plugins import res_json
+from module.user.service import UserService
 
 
 class UserView(MethodView):

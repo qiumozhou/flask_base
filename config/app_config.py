@@ -8,6 +8,4 @@ LOCAL_PORT = 9999
 SECRET_KEY = 'abcdefghijklmm'
 EXPIRATION = 36000
 
-# WHITE_URL_LIST=[]
-MYSQL_PWD = "bitorobotics"
-MYSQL_DB = "test"
+

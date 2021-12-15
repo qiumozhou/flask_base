@@ -6,10 +6,12 @@
 from datetime import datetime
 
 from sqlalchemy.ext.declarative import declarative_base
-Base = declarative_base()
-from sqlalchemy import Column, Integer, String, MetaData, DateTime
+
+from component.mysql.db_session import MysqlEngineMaker
+Base = declarative_base(MysqlEngineMaker.create("flask"))
+
+from sqlalchemy import Column, Integer, String, DateTime
 from werkzeug.security import generate_password_hash, check_password_hash
-metadata = MetaData()
 
 
 class User(Base):
@@ -43,4 +45,5 @@ class User(Base):
 
     def check_password(self, value):
         return check_password_hash(self._password_hash, value)
+
 

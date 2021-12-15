@@ -5,19 +5,19 @@
 # @Email    ：15717163552@163.com
 import os
 import time
-
-from config import SECRET_KEY, EXPIRATION
-from db_server.db_session import Session
-from db_server.models import User
-from plugins import to_dict, custom_field
-from user.res_code import USER_REPEAT, SUCCESS, USER_ERROR, NO_TOKEN, SERVER_NOT_RUNNING
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired, BadSignature
+
+from common.plugins import custom_field, to_dict
+from component.mysql.db_session import MysqlSessionMaker
+from config.app_config import SECRET_KEY, EXPIRATION
+from module.user.models import User
+from module.user.res_code import USER_REPEAT, USER_ERROR, SUCCESS, SERVER_NOT_RUNNING, NO_TOKEN
 
 
 class UserService:
 
     def __init__(self):
-        self._session = Session()
+        self._session = MysqlSessionMaker.create('flask')
 
     def add_user(self,**user_data):
         user_obj = self._session.query(User).filter(User.username==user_data["username"]).first()

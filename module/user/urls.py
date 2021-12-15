@@ -3,7 +3,7 @@
 # @Author  : mozhouqiu
 # @FileName: urls.py
 # @Email    ：15717163552@163.com
-from user.views import UserView, LoginView, UpLoadInfoView, StopView, AuthView, TokenView
+from module.user.views import UserView, LoginView, UpLoadInfoView, StopView, AuthView, TokenView
 
 USER_MODULES = [
     ("/user", UserView, "user"),

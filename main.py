@@ -3,19 +3,17 @@
 # @Author  : mozhouqiu
 # @FileName: main.py
 # @Email    ：15717163552@163.com
-from flask import request
 from gevent import monkey
 from gevent.pywsgi import WSGIServer
-from flask_cors import CORS
 
-import config
+from common.app import BaseAppFactory
+from common.urls import UrlAddBase
+from component.mysql.db_session import ModelToDB
+from config import app_config
 
-from utils import create_app
 monkey.patch_all()
-app = create_app()
-CORS(app,supports_credentials=True)
-
-
+app = BaseAppFactory.create("dev")
+UrlAddBase().add_class_url(app)
 
 
 @app.route('/')
@@ -23,10 +21,11 @@ def hello():
     return 'hello hx'
 
 
-def run_server():
-    server = WSGIServer((config.LOCAL_HOST, config.LOCAL_PORT), app)
-    print("Server start on http://{host}:{port}".format(host=config.LOCAL_HOST, port=config.LOCAL_PORT))
+def main():
+    server = WSGIServer((app_config.LOCAL_HOST, app_config.LOCAL_PORT), app)
+    print("Server start on http://{host}:{port}".format(host=app_config.LOCAL_HOST, port=app_config.LOCAL_PORT))
     server.serve_forever()
 
 if __name__ == '__main__':
-    run_server()
+    ModelToDB.run()
+    main()
